@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<Settings>
+	<scrape>
+		<kenpom>
+			<WebPage>http://kenpom.com/index.php?y=2017</WebPage>
+		</kenpom>
+		<WorkDirectory>C:\Users\mepro\Desktop\Madness</WorkDirectory>
+	</scrape>
+</Settings>

@@ -1,7 +1,7 @@
 <#
-    Powershell March madness stats script
+    Powershell March madness scrape script
 #>
-$Host.UI.RawUI.WindowTitle = "stats Script"
+$Host.UI.RawUI.WindowTitle = "scrape Script"
 
 function GetElapsedTime([datetime]$starttime) 
 {
@@ -10,25 +10,25 @@ function GetElapsedTime([datetime]$starttime)
   $retStr
 }
 $script:startTime = Get-Date
-write-host "stats Script Started at $script:startTime" -foreground "green"
+write-host "scrape Script Started at $script:startTime" -foreground "green"
 <#
     Opens the settings file
 #>
 cd $PSScriptRoot
 $CurrentUser = [Environment]::UserName
-[xml]$ConfigFile = Get-Content stats.xml
-write-host "settings from $($PSScriptRoot)\stats.xml" -foreground "yellow"
+[xml]$ConfigFile = Get-Content scrape.xml
+write-host "settings from $($PSScriptRoot)\scrape.xml" -foreground "yellow"
 write-host "Current user: $CurrentUser" -foreground "yellow"
 write-host "Current domain: $([Environment]::UserDomainName)" -foreground "yellow"
 write-host "Current machine: $([Environment]::MachineName)" -foreground "yellow"
-$WebPage = $ConfigFile.Settings.Stats.WebPage
-$WorkDirectory = $ConfigFile.Settings.Stats.WorkDirectory
+$WebPage = $ConfigFile.Settings.scrape.kenpom.WebPage
+$WorkDirectory = $ConfigFile.Settings.scrape.WorkDirectory
 $WebPage
 $WorkDirectory
 New-Item -ItemType Directory -Force -Path $WorkDirectory | Out-Null
 $wc = New-Object System.Net.WebClient
 $content = $wc.DownloadString($WebPage)
-$FilePath = $WorkDirectory + "\stats.html"
+$FilePath = $WorkDirectory + "\kenpom.html"
 $content | Out-File -FilePath $FilePath
 exit
 <#
