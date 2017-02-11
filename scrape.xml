@@ -4,6 +4,9 @@
 		<kenpom>
 			<WebPage>http://kenpom.com/index.php?y=2017</WebPage>
 		</kenpom>
+		<espn>
+			<WebPage>http://www.espn.com/mens-college-basketball/tournament/bracket</WebPage>
+		</espn>
 		<WorkDirectory>C:\Users\mepro\Desktop\Madness</WorkDirectory>
 	</scrape>
 </Settings>

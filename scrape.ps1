@@ -21,15 +21,25 @@ write-host "settings from $($PSScriptRoot)\scrape.xml" -foreground "yellow"
 write-host "Current user: $CurrentUser" -foreground "yellow"
 write-host "Current domain: $([Environment]::UserDomainName)" -foreground "yellow"
 write-host "Current machine: $([Environment]::MachineName)" -foreground "yellow"
-$WebPage = $ConfigFile.Settings.scrape.kenpom.WebPage
 $WorkDirectory = $ConfigFile.Settings.scrape.WorkDirectory
-$WebPage
-$WorkDirectory
 New-Item -ItemType Directory -Force -Path $WorkDirectory | Out-Null
+<#
+    kenpom stats page
+#>
 $wc = New-Object System.Net.WebClient
-$content = $wc.DownloadString($WebPage)
-$FilePath = $WorkDirectory + "\kenpom.html"
-$content | Out-File -FilePath $FilePath
+$WebPage1 = $ConfigFile.Settings.scrape.kenpom.WebPage
+$WebPage1 
+$content1 = $wc.DownloadString($WebPage1)
+$FilePath1 = $WorkDirectory + "\kenpom.html"
+$content1 | Out-File -FilePath $FilePath1
+<#
+    espn bracket page
+#>
+$WebPage2 = $ConfigFile.Settings.scrape.espn.WebPage
+$WebPage2
+$content2 = $wc.DownloadString($WebPage2)
+$FilePath2 = $WorkDirectory + "\espn.html"
+$content2 | Out-File -FilePath $FilePath2
 exit
 <#
     Networked drive mappings
