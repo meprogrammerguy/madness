@@ -3,6 +3,7 @@
 	<scrape>
 		<kenpom>
 			<WebPage>http://kenpom.com/index.php?y=2017</WebPage>
+			<TableName>ratings-table</TableName>
 		</kenpom>
 		<espn>
 			<WebPage>http://www.espn.com/mens-college-basketball/tournament/bracket</WebPage>
