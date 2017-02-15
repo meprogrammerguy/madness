@@ -4,7 +4,7 @@ $url = 'http://kenpom.com/index.php?y=2017'
 
 $r = Invoke-WebRequest $url
 
-extract.ps1 $r -TableNumber 0 | Format-Table -Auto
+.\extract.ps1 $r -TableNumber 0 | Format-Table -Auto
 $content2 | Out-File -FilePath $FilePath2
 #>
 param(
@@ -86,6 +86,6 @@ foreach($row in $rows)
 
     ## And finally cast that hashtable to a PSCustomObject
 
-    [PSCustomObject] $resultObject
+    [PSCustomObject] $resultObject	
 
 }
