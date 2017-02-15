@@ -21,7 +21,7 @@ write-host "settings from $($PSScriptRoot)\scrape.xml" -foreground "yellow"
 write-host "Current user: $CurrentUser" -foreground "yellow"
 write-host "Current domain: $([Environment]::UserDomainName)" -foreground "yellow"
 write-host "Current machine: $([Environment]::MachineName)" -foreground "yellow"
-$WorkDirectory = $ConfigFile.Settings.scrape.WorkDirectory
+$WorkDirectory = [Environment]::GetFolderPath("Desktop") + "\madness"
 New-Item -ItemType Directory -Force -Path $WorkDirectory | Out-Null
 <#
     kenpom stats page

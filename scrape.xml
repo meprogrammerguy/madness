@@ -8,6 +8,6 @@
 		<espn>
 			<WebPage>http://www.espn.com/mens-college-basketball/tournament/bracket</WebPage>
 		</espn>
-		<WorkDirectory>C:\Users\mepro\Desktop\Madness</WorkDirectory>
+		<WorkDirectory>%HOMEPATH%\Desktop\Madness</WorkDirectory>
 	</scrape>
 </Settings>
