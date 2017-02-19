@@ -3,11 +3,10 @@
 	<scrape>
 		<kenpom>
 			<WebPage>http://kenpom.com/index.php?y=2017</WebPage>
-			<TableName>ratings-table</TableName>
+			<TableNumber>0</TableNumber>
 		</kenpom>
 		<espn>
 			<WebPage>http://www.espn.com/mens-college-basketball/tournament/bracket</WebPage>
 		</espn>
-		<WorkDirectory>%HOMEPATH%\Desktop\Madness</WorkDirectory>
 	</scrape>
 </Settings>
