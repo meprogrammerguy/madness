@@ -20,10 +20,10 @@ foreach($row in $rows)
    if($cells[0].tagName -eq "TH")
     {
         $titles = @($cells | % { ("" + $_.InnerText).Trim() })
+		$titles[$cells.Count - 4] = "SOS" + $titles[$cells.Count - 4]
+		$titles[$cells.Count - 1] = "NCSOS" + $titles[$cells.Count - 1]
         continue
     }
-	$titles[9] = "SOS" + $titles[9]
-	$titles[12] = "NCSOS" + $titles[12]
     ## If we haven't found any table headers, make up names "P1", "P2", etc.
     if(-not $titles)
     {
