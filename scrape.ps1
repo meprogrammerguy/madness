@@ -33,8 +33,8 @@ $WebPage
 $request = Invoke-WebRequest $WebPage
 $KenpomPath = $WorkDirectory + "\kenpom.txt"
 Get-PSBreakpoint | Remove-PSBreakpoint
-#Set-PsBreakPoint extract.ps1 -Line 42
-.\extract.ps1 $request -TableNumber $TableNumber | Select-Object Rank,Team,Conf,W-L,AdjEM,AdjO,AdjD,AdjT,Luck,LAdjEM,OppO,OppD,NCAdjEM  | Export-CSV $KenpomPath
+#Set-PsBreakPoint extract.ps1 -Line 45
+.\extract.ps1 $request -TableNumber $TableNumber | Select-Object Rank,Team,Conf,W-L,AdjEM,AdjO,AdjD,AdjT,Luck,SOSAdjEM,OppO,OppD,NCSOSAdjEM  | Export-CSV $KenpomPath
 <#
     espn bracket page
 #>

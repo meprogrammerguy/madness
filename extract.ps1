@@ -22,7 +22,8 @@ foreach($row in $rows)
         $titles = @($cells | % { ("" + $_.InnerText).Trim() })
         continue
     }
-	
+	$titles[9] = "SOS" + $titles[9]
+	$titles[12] = "NCSOS" + $titles[12]
     ## If we haven't found any table headers, make up names "P1", "P2", etc.
     if(-not $titles)
     {
@@ -36,20 +37,15 @@ foreach($row in $rows)
 	$cellcounter = -1
     for($counter = 0; $counter -lt $cells.Count ; $counter++)
     {
-		if($counter -eq 9)
+	    $title = $titles[$counter]
+        if(-not $title)
 		{
-			$titles[$counter] = "L" + $titles[$counter]
+			continue
 		}
-		if($counter -eq 12)
-		{
-			$titles[$counter] = "NC" + $titles[$counter]
-		}
-        $title = $titles[$counter]
-		$cellcounter = $cellcounter + 1
-        if(-not $title) { continue }
+		$cellcounter += 1
 		if($cells[$cellcounter].className -eq "td-right") #ignore kenpom stupid seeds
 		{
-			$cellcounter = $cellcounter + 1
+			$cellcounter += 1
 		}
         $resultObject[$title] = ("" + $cells[$cellcounter].InnerText).Trim()
     }
