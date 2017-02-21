@@ -2,7 +2,7 @@
 <Settings>
 	<scrape>
 		<kenpom>
-			<WebPage>http://kenpom.com/index.php?y=2017</WebPage>
+			<WebPage>http://kenpom.com/index.php?y=2016</WebPage>
 			<TableNumber>0</TableNumber>
 		</kenpom>
 		<espn>

@@ -25,24 +25,28 @@ write-host "Current machine: $([Environment]::MachineName)" -foreground "yellow"
 $WorkDirectory = [Environment]::GetFolderPath("Desktop") + "\madness"
 New-Item -ItemType Directory -Force -Path $WorkDirectory | Out-Null
 <#
-    kenpom stats page
+    kenpom stats page (turned off for now)
 #>
+<#
 $WebPage = $ConfigFile.Settings.scrape.kenpom.WebPage
 $TableNumber = $ConfigFile.Settings.scrape.kenpom.TableNumber
 $WebPage 
 $request = Invoke-WebRequest $WebPage
 $KenpomPath = $WorkDirectory + "\kenpom.csv"
 Get-PSBreakpoint | Remove-PSBreakpoint
-#Set-PsBreakPoint extract.ps1 -Line 13
-.\extract.ps1 $request -TableNumber $TableNumber | Select-Object Rank,Team,AdjEM,AdjO,AdjD,AdjT,Luck,SOSAdjEM,OppO,OppD,NCSOSAdjEM  | Export-CSV $KenpomPath
+#Set-PsBreakPoint extract_table.ps1 -Line 13
+.\extract_table.ps1 $request -TableNumber $TableNumber | Select-Object Rank,Team,AdjEM,AdjO,AdjD,AdjT,Luck,SOSAdjEM,OppO,OppD,NCSOSAdjEM  | Export-CSV $KenpomPath
+#>
 <#
     espn bracket page
 #>
 $WebPage = $ConfigFile.Settings.scrape.espn.WebPage
-$WebPage
-$content = $wc.DownloadString($WebPage)
-$BracketPath = $WorkDirectory + "\espn.html"
-$content | Out-File -FilePath $BracketPath
+$WebPage 
+$request = Invoke-WebRequest $WebPage
+$BracketPath = $WorkDirectory + "\bracket.csv"
+Get-PSBreakpoint | Remove-PSBreakpoint
+#Set-PsBreakPoint extract_table.ps1 -Line 13
+.\extract_bracket.ps1 $request | Select-Object Rank,Team,AdjEM,AdjO,AdjD,AdjT,Luck,SOSAdjEM,OppO,OppD,NCSOSAdjEM  | Export-CSV $BracketPath
 
 cd $PSScriptRoot
 Convert-Path .
