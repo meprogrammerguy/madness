@@ -45,7 +45,7 @@ $WebPage
 $request = Invoke-WebRequest $WebPage
 $BracketPath = $WorkDirectory + "\bracket.csv"
 Get-PSBreakpoint | Remove-PSBreakpoint
-Set-PsBreakPoint extract_bracket.ps1 -Line 8
+Set-PsBreakPoint extract_bracket.ps1 -Line 9
 .\extract_bracket.ps1 $request
 
 cd $PSScriptRoot

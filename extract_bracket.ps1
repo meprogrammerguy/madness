@@ -3,8 +3,14 @@ param(
     [Microsoft.PowerShell.Commands.HtmlWebResponseObject] $WebRequest
 )
 
-$matches = @($WebRequest.ParsedHtml.getElementById("match1")).innerHtml
-$matches
+$teams = @($WebRequest.ParsedHtml.getElementsByTagName("a"))
+$teams.title
+$seeds = @($WebRequest.ParsedHtml.getElementsByTagName("dt")).innerText
+$splitstrings = @()
+foreach($seed in $seeds)
+{
+	$splitstrings = $seed -split ' ', 2
+}
 exit
 ## Extract the tables out of the web request
 $tables = @($WebRequest.ParsedHtml.getElementsByTagName("TABLE"))
