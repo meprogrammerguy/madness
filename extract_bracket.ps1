@@ -1,10 +1,11 @@
 param(
     [Parameter(Mandatory = $true)]
-    [Microsoft.PowerShell.Commands.HtmlWebResponseObject] $WebRequest,
-    [Parameter(Mandatory = $true)]
-    [int] $TableNumber
+    [Microsoft.PowerShell.Commands.HtmlWebResponseObject] $WebRequest
 )
 
+$matches = @($WebRequest.ParsedHtml.getElementById("match1")).innerHtml
+$matches
+exit
 ## Extract the tables out of the web request
 $tables = @($WebRequest.ParsedHtml.getElementsByTagName("TABLE"))
 $table = $tables[$TableNumber]

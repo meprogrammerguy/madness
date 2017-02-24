@@ -45,8 +45,8 @@ $WebPage
 $request = Invoke-WebRequest $WebPage
 $BracketPath = $WorkDirectory + "\bracket.csv"
 Get-PSBreakpoint | Remove-PSBreakpoint
-#Set-PsBreakPoint extract_table.ps1 -Line 13
-.\extract_bracket.ps1 $request | Select-Object Rank,Team,AdjEM,AdjO,AdjD,AdjT,Luck,SOSAdjEM,OppO,OppD,NCSOSAdjEM  | Export-CSV $BracketPath
+Set-PsBreakPoint extract_bracket.ps1 -Line 8
+.\extract_bracket.ps1 $request
 
 cd $PSScriptRoot
 Convert-Path .
