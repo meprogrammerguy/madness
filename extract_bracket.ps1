@@ -21,6 +21,10 @@ foreach($game in $games)
 	$a = $game.innerHtml
 	$a = $a -replace '<B>',''
 	$a = $a -replace '</B>',''
+	$a = $a -replace '<DL>',''
+	$a = $a -replace '</DL>',''
+	$a = $a -replace 'amp;',''
+	$a = $a.Trim()
 	if($a.length -gt 0)
 	{
 		$seed1 = ($a -split "<DT>").split("<")[1].Trim()
