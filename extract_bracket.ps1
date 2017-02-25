@@ -2,15 +2,28 @@ param(
     [Parameter(Mandatory = $true)]
     [Microsoft.PowerShell.Commands.HtmlWebResponseObject] $WebRequest
 )
-
-$teams = @($WebRequest.ParsedHtml.getElementsByTagName("a"))
-$teams.title
-$seeds = @($WebRequest.ParsedHtml.getElementsByTagName("dt")).innerText
-$splitstrings = @()
-foreach($seed in $seeds)
+$IDs = @()
+for($counter = 1; $counter -lt 65 ; $counter++)
 {
-	$splitstrings = $seed -split ' ', 2
+	$IDs += "match" + $counter
 }
+$games = @()
+foreach($id in $IDs)
+{
+	$games += @($WebRequest.ParsedHtml.getElementByID($id))
+}
+foreach($game in $games)
+{
+	$a = $game.innerHtml
+	$seed1 = ($a -split "<DT><B>").split("<")[1]
+	$team1 = ($a -split 'title=')[1].split(" href=")[0]
+	$score1 = ($a -split "pointer")[1].split(">")[2].split("<")[0]
+	$seed2 = ($a -split "<DT><B>").split("<")[5].split(">")[1]
+	$team2 = ($a -split 'title=')[2].split('"')[1]
+	$score2 = ($a -split "pointer")[1].split(">")[4].split("<")[0]
+}
+$teams = @($WebRequest.ParsedHtml.getElementsByTagName("DT"))
+$scores = @($WebRequest.ParsedHtml.getElementsByClassName("pointer")).innerHtml
 exit
 ## Extract the tables out of the web request
 $tables = @($WebRequest.ParsedHtml.getElementsByTagName("TABLE"))
