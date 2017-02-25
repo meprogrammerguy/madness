@@ -8,68 +8,36 @@ for($counter = 1; $counter -lt 65 ; $counter++)
 	$IDs += "match" + $counter
 }
 $games = @()
+$headers = "Match","Seed1","Team1","Score1","Seed2","Team2","Score2"
+$index = 0
 foreach($id in $IDs)
 {
 	$games += @($WebRequest.ParsedHtml.getElementByID($id))
 }
+$resultObject = [Ordered] @{}
+$index = 0
 foreach($game in $games)
 {
+	$index++
 	$a = $game.innerHtml
-	$seed1 = ($a -split "<DT><B>").split("<")[1]
-	$team1 = ($a -split 'title=')[1].split(" href=")[0]
-	$score1 = ($a -split "pointer")[1].split(">")[2].split("<")[0]
-	$seed2 = ($a -split "<DT><B>").split("<")[5].split(">")[1]
-	$team2 = ($a -split 'title=')[2].split('"')[1]
-	$score2 = ($a -split "pointer")[1].split(">")[4].split("<")[0]
-}
-$teams = @($WebRequest.ParsedHtml.getElementsByTagName("DT"))
-$scores = @($WebRequest.ParsedHtml.getElementsByClassName("pointer")).innerHtml
-exit
-## Extract the tables out of the web request
-$tables = @($WebRequest.ParsedHtml.getElementsByTagName("TABLE"))
-$table = $tables[$TableNumber]
-$titles = @()
-$rows = @($table.Rows)
-
-## Go through all of the rows in the table
-foreach($row in $rows)
-{
-   $cells = @($row.Cells)
-
-   ## If we've found a table header, remember its titles
-   if($cells[0].tagName -eq "TH")
-    {
-        $titles = @($cells | % { ("" + $_.InnerText).Trim() })
-		$titles[$cells.Count - 4] = "SOS" + $titles[$cells.Count - 4]
-		$titles[$cells.Count - 1] = "NCSOS" + $titles[$cells.Count - 1]
-        continue
-    }
-    ## If we haven't found any table headers, make up names "P1", "P2", etc.
-    if(-not $titles)
-    {
-        $titles = @(1..($cells.Count + 2) | % { "P$_" })
-    }
-
-    ## Now go through the cells in the the row. For each, try to find the
-    ## title that represents that column and create a hashtable mapping those
-    ## titles to content
-    $resultObject = [Ordered] @{}
-	$cellcounter = -1
-    for($counter = 0; $counter -lt $cells.Count ; $counter++)
-    {
-	    $title = $titles[$counter]
-        if(-not $title)
-		{
-			continue
-		}
-		$cellcounter += 1
-		if($cells[$cellcounter].className -eq "td-right") #ignore kenpom stupid seeds
-		{
-			$cellcounter += 1
-		}
-        $resultObject[$title] = ("" + $cells[$cellcounter].InnerText).Trim()
-    }
-
-    ## And finally cast that hashtable to a PSCustomObject
-    [PSCustomObject] $resultObject	
+	$a = $a -replace '<B>',''
+	$a = $a -replace '</B>',''
+	if($a.length > 0)
+	{
+		$seed1 = ($a -split "<DT>").split("<")[1].Trim()
+		$team1 = ($a -split 'href=')[1].split('>')[1].split("<")[0]
+		$score1 = ($a -split "pointer")[1].split(">")[1].split("<")[0]
+		$seed2 = ($a -split "<BR>")[1].split("<")[0].Trim()
+		$team2 = ($a -split 'href=')[2].split('>')[1].split("<")[0]
+		$score2 = ($a -split "pointer")[1].split(">")[2].split("<")[0]
+		$resultObject["Match"] = ("" + $index)
+		$resultObject["Seed1"] = ("" + $seed1)
+		$resultObject["Team1"] = ("" + $team1)
+		$resultObject["Score1"] = ("" + $score1)
+		$resultObject["Seed2"] = ("" + $seed2)
+		$resultObject["Team2"] = ("" + $team2)
+		$resultObject["Score2"] = ("" + $score2)
+		Write-Host $resultObject
+		[PSCustomObject] $resultObject
+	}
 }

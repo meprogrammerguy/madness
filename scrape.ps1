@@ -27,16 +27,15 @@ New-Item -ItemType Directory -Force -Path $WorkDirectory | Out-Null
 <#
     kenpom stats page (turned off for now)
 #>
-<#
+
 $WebPage = $ConfigFile.Settings.scrape.kenpom.WebPage
 $TableNumber = $ConfigFile.Settings.scrape.kenpom.TableNumber
 $WebPage 
 $request = Invoke-WebRequest $WebPage
 $KenpomPath = $WorkDirectory + "\kenpom.csv"
 Get-PSBreakpoint | Remove-PSBreakpoint
-#Set-PsBreakPoint extract_table.ps1 -Line 13
+Set-PsBreakPoint extract_table.ps1 -Line 50
 .\extract_table.ps1 $request -TableNumber $TableNumber | Select-Object Rank,Team,AdjEM,AdjO,AdjD,AdjT,Luck,SOSAdjEM,OppO,OppD,NCSOSAdjEM  | Export-CSV $KenpomPath
-#>
 <#
     espn bracket page
 #>
@@ -45,8 +44,8 @@ $WebPage
 $request = Invoke-WebRequest $WebPage
 $BracketPath = $WorkDirectory + "\bracket.csv"
 Get-PSBreakpoint | Remove-PSBreakpoint
-Set-PsBreakPoint extract_bracket.ps1 -Line 23
-.\extract_bracket.ps1 $request
+#Set-PsBreakPoint extract_bracket.ps1 -Line 26
+.\extract_bracket.ps1  $request | Select-Object Match,Seed1,Team1,Score1,Seed2,Team2,Score2 | Export-CSV $BracketPath
 
 cd $PSScriptRoot
 Convert-Path .
@@ -55,4 +54,3 @@ write-host "Total Elapsed Time: " $elapsed -foreground "yellow"
 write-host "Script Ended at $(get-date)" -foreground "green"
 Write-Host "Press any key to continue ..." -foreground "magenta"
 $x = $host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
-
