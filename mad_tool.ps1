@@ -1,7 +1,7 @@
 <#
-    Powershell March madness scrape script
+    Powershell March madness script
 #>
-$Host.UI.RawUI.WindowTitle = "scrape Script"
+$Host.UI.RawUI.WindowTitle = "Madness Script"
 
 function GetElapsedTime([datetime]$starttime) 
 {
@@ -11,14 +11,14 @@ function GetElapsedTime([datetime]$starttime)
 }
 $script:startTime = Get-Date
 $wc = New-Object System.Net.WebClient
-write-host "scrape Script Started at $script:startTime" -foreground "green"
+write-host "Madness Script Started at $script:startTime" -foreground "green"
 <#
     Opens the settings file
 #>
 cd $PSScriptRoot
 $CurrentUser = [Environment]::UserName
-[xml]$ConfigFile = Get-Content scrape.xml
-write-host "settings from $($PSScriptRoot)\scrape.xml" -foreground "yellow"
+[xml]$ConfigFile = Get-Content mad_tool.xml
+write-host "settings from $($PSScriptRoot)\mad_tool.xml" -foreground "yellow"
 write-host "Current user: $CurrentUser" -foreground "yellow"
 write-host "Current domain: $([Environment]::UserDomainName)" -foreground "yellow"
 write-host "Current machine: $([Environment]::MachineName)" -foreground "yellow"
@@ -28,18 +28,18 @@ New-Item -ItemType Directory -Force -Path $WorkDirectory | Out-Null
     kenpom stats page (turned off for now)
 #>
 
-$WebPage = $ConfigFile.Settings.scrape.kenpom.WebPage
-$TableNumber = $ConfigFile.Settings.scrape.kenpom.TableNumber
+$WebPage = $ConfigFile.Settings.MadTool.kenpom.WebPage
+$TableNumber = $ConfigFile.Settings.MadTool.kenpom.TableNumber
 $WebPage 
 $request = Invoke-WebRequest $WebPage
 $KenpomPath = $WorkDirectory + "\kenpom.csv"
 Get-PSBreakpoint | Remove-PSBreakpoint
 #Set-PsBreakPoint extract_table.ps1 -Line 50
-#.\extract_table.ps1 $request -TableNumber $TableNumber | Select-Object Rank,Team,AdjEM,AdjO,AdjD,AdjT,Luck,SOSAdjEM,OppO,OppD,NCSOSAdjEM  | Export-CSV $KenpomPath
+.\extract_table.ps1 $request -TableNumber $TableNumber | Select-Object Rank,Team,AdjEM,AdjO,AdjD,AdjT,Luck,SOSAdjEM,OppO,OppD,NCSOSAdjEM  | Export-CSV $KenpomPath
 <#
     espn bracket page
 #>
-$WebPage = $ConfigFile.Settings.scrape.espn.WebPage
+$WebPage = $ConfigFile.Settings.MadTool.espn.WebPage
 $WebPage 
 $request = Invoke-WebRequest $WebPage
 $BracketPath = $WorkDirectory + "\bracket.csv"

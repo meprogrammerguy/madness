@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <Settings>
-	<scrape>
+	<MadTool>
 		<kenpom>
 			<WebPage>http://kenpom.com/index.php?y=2016</WebPage>
 			<TableNumber>0</TableNumber>
@@ -8,5 +8,5 @@
 		<espn>
 			<WebPage>http://www.espn.com/mens-college-basketball/tournament/bracket</WebPage>
 		</espn>
-	</scrape>
+	</MadTool>
 </Settings>
