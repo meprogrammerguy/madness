@@ -4,6 +4,16 @@ param(
 )
 $games = @($WebRequest.ParsedHtml.getElementsByclassName("match round1 winnertop"))
 $games += @($WebRequest.ParsedHtml.getElementsByclassName("match round1 winnerbot"))
+$games += @($WebRequest.ParsedHtml.getElementsByclassName("match round2 winnertop"))
+$games += @($WebRequest.ParsedHtml.getElementsByclassName("match round2 winnerbot"))
+$games += @($WebRequest.ParsedHtml.getElementsByclassName("match round3 winnertop"))
+$games += @($WebRequest.ParsedHtml.getElementsByclassName("match round3 winnerbot"))
+$games += @($WebRequest.ParsedHtml.getElementsByclassName("match round4 winnertop"))
+$games += @($WebRequest.ParsedHtml.getElementsByclassName("match round4 winnerbot"))
+$games += @($WebRequest.ParsedHtml.getElementsByclassName("match round5 winnertop"))
+$games += @($WebRequest.ParsedHtml.getElementsByclassName("match round5 winnerbot"))
+$games += @($WebRequest.ParsedHtml.getElementsByclassName("match round6 winnertop"))
+$games += @($WebRequest.ParsedHtml.getElementsByclassName("match round6 winnerbot"))
 foreach($game in $games)
 {
 	$a = $game.innerHtml
@@ -12,6 +22,7 @@ foreach($game in $games)
 	$a = $a -replace '<DL>',''
 	$a = $a -replace '</DL>',''
 	$a = $a -replace 'amp;',''
+	$a = $a -replace "'i",'i'
 	$a = $a.Trim()
 	if($a.length -gt 0)
 	{
@@ -23,12 +34,17 @@ foreach($game in $games)
 		$score2 = ($a -split "pointer")[1].split(">")[2].split("<")[0]
 		$resultObject = [Ordered] @{}
 		$resultObject["Match"] += ("" + $game.id)
+		$resultObject["Round"] += ("" + $game.className)
 		$resultObject["Seed1"] += ("" + $seed1)
-		$resultObject["Team1"] += ("" + $team1)
-		$resultObject["Score1"] += ("" + $score1)
+		$resultObject["KenPom11"] += ("")
+		$resultObject["Bracket1"] += ("" + $team1)
+		$resultObject["Actual1"] += ("" + $score1)
+		$resultObject["Predict1"] += ("")
 		$resultObject["Seed2"] += ("" + $seed2)
-		$resultObject["Team2"] += ("" + $team2)
-		$resultObject["Score2"] += ("" + $score2)
+		$resultObject["KenPom11"] += ("")
+		$resultObject["Bracket2"] += ("" + $team2)
+		$resultObject["Predict2"] += ("")
+		$resultObject["Actual2"] += ("" + $score2)
 		[PSCustomObject] $resultObject
 	}
 }   	
