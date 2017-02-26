@@ -2,6 +2,9 @@ param(
     [Parameter(Mandatory = $true)]
     [Microsoft.PowerShell.Commands.HtmlWebResponseObject] $WebRequest
 )
+
+Import-Module PowerShellFuzzySearch
+
 $games = @($WebRequest.ParsedHtml.getElementsByclassName("match round1 winnertop"))
 $games += @($WebRequest.ParsedHtml.getElementsByclassName("match round1 winnerbot"))
 $games += @($WebRequest.ParsedHtml.getElementsByclassName("match round2 winnertop"))
@@ -28,26 +31,72 @@ foreach($game in $games)
 	{
 		$seed1 = ($a -split "<DT>").split("<")[1].Trim()
 		$team1 = ($a -split 'href=')[1].split('>')[1].split("<")[0]
-		$score1 = ($a -split "pointer")[1].split(">")[1].split("<")[0]
+		$kenpom1 = ./TeamNames.ps1 | Select-Fuzzy $team1
+		$k1Index = 1
+		$kenpom1 = ""
+		if($team1.length -gt 0 -and $game.className.contains("round1"))
+		{
+			if($kenpom1.count -gt 1)
+			{
+				write-host "Bracket = $($team1)"
+				foreach($kenpom in $kenpom1)
+				{
+					write-host "			KenPom = $($kenpom)"
+				}
+				$PromptText = "					(1-$($kenpom1.length))"
+				$k1Index = Read-Host $PromptText
+			}
+		}
+		$score1 = ($a -split "pointer")[1].split(">")[1].split("<")[0] 
 		$seed2 = ($a -split "<BR>")[1].split("<")[0].Trim()
 		$team2 = ($a -split 'href=')[2].split('>')[1].split("<")[0]
+		$k2Index = 1
+		$kenpom2 = ""
+		if($team2.length -gt 0 -and $game.className.contains("round1"))
+		{
+			$kenpom2 = ./TeamNames.ps1 | Select-Fuzzy $team2
+			if($kenpom2.count -gt 1)
+			{
+				write-host "Bracket = $($team2)"
+				foreach($kenpom in $kenpom2)
+				{
+					write-host "			KenPom = $($kenpom)"
+				}
+				$PromptText = "					(1-$($kenpom2.length))"
+				$k2Index = Read-Host $PromptText
+			}
+		}
 		$score2 = ($a -split "pointer")[1].split(">")[2].split("<")[0]
 		$resultObject = [Ordered] @{}
 		$resultObject["Match"] += ("" + $game.id)
 		$resultObject["Round"] += ("" + $game.className)
 		$resultObject["Seed1"] += ("" + $seed1)
-		$resultObject["KenPom11"] += ("")
+		if($k1Index -eq 1)
+		{
+			$resultObject["KenPom1"] += ("" + $kenpom1)
+		}
+		else
+		{
+			$resultObject["KenPom1"] += ("" + $kenpom1[$k1Index - 1])
+		}
 		$resultObject["Bracket1"] += ("" + $team1)
 		$resultObject["Actual1"] += ("" + $score1)
 		$resultObject["Predict1"] += ("")
 		$resultObject["Seed2"] += ("" + $seed2)
-		$resultObject["KenPom11"] += ("")
+		if($k2Index -eq 1)
+		{
+			$resultObject["KenPom2"] += ("" + $kenpom2)
+		}
+		else
+		{
+			$resultObject["KenPom2"] += ("" + $kenpom2[$k2Index - 1])
+		}
 		$resultObject["Bracket2"] += ("" + $team2)
 		$resultObject["Predict2"] += ("")
 		$resultObject["Actual2"] += ("" + $score2)
 		[PSCustomObject] $resultObject
 	}
-}   	
+} 	
     	
     	
     

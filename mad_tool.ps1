@@ -34,7 +34,7 @@ $WebPage
 $request = Invoke-WebRequest $WebPage
 $KenpomPath = $WorkDirectory + "\kenpom.csv"
 Get-PSBreakpoint | Remove-PSBreakpoint
-#Set-PsBreakPoint extract_table.ps1 -Line 50
+#Set-PsBreakPoint extract_table.ps1 -Line 56
 .\extract_table.ps1 $request -TableNumber $TableNumber | Select-Object Rank,Team,AdjEM,AdjO,AdjD,AdjT,Luck,SOSAdjEM,OppO,OppD,NCSOSAdjEM  | Export-CSV $KenpomPath
 <#
     espn bracket page
@@ -44,7 +44,7 @@ $WebPage
 $request = Invoke-WebRequest $WebPage
 $BracketPath = $WorkDirectory + "\bracket.csv"
 Get-PSBreakpoint | Remove-PSBreakpoint
-#Set-PsBreakPoint extract_bracket.ps1 -Line 6
+#Set-PsBreakPoint extract_bracket.ps1 -Line 74
 .\extract_bracket.ps1 $request | Select-Object Match,Round,Seed1,KenPom1,Bracket1,Predict1,Actual1,Seed2,KenPom2,Bracket2,Predict2,Actual2 | Export-CSV $BracketPath
 
 cd $PSScriptRoot
