@@ -31,7 +31,7 @@ foreach($game in $games)
 	{
 		$seed1 = ($a -split "<DT>").split("<")[1].Trim()
 		$team1 = ($a -split 'href=')[1].split('>')[1].split("<")[0]
-		$k1Index = 1
+		$k1Index = 0
 		$kenpom1 = @()
 		if($team1.length -gt 0 -and $game.className.contains("round1"))
 		{
@@ -50,7 +50,7 @@ foreach($game in $games)
 		$score1 = ($a -split "pointer")[1].split(">")[1].split("<")[0] 
 		$seed2 = ($a -split "<BR>")[1].split("<")[0].Trim()
 		$team2 = ($a -split 'href=')[2].split('>')[1].split("<")[0]
-		$k2Index = 1
+		$k2Index = 0
 		$kenpom2 = @()
 		if($team2.length -gt 0 -and $game.className.contains("round1"))
 		{
@@ -73,7 +73,7 @@ foreach($game in $games)
 		$resultObject["Seed1"] += ("" + $seed1)
 		[int]$intNum = [convert]::ToInt32($k1Index, 10)
 		$intNum = $intNum - 1
-		if($kenpom1.count-eq 1 -or $kenpom1 -eq "")
+		if($kenpom1.count -lt 1 -or $intNum -lt 0)
 		{
 			$resultObject["KenPom1"] += ("" + $kenpom1)
 		}
@@ -87,7 +87,7 @@ foreach($game in $games)
 		$resultObject["Seed2"] += ("" + $seed2)
 		[int]$intNum = [convert]::ToInt32($k2Index, 10)
 		$intNum = $intNum - 1
-		if($kenpom2.count -eq 1 -or $kenpom2 -eq "")
+		if($kenpom2.count -lt 1 -or $intNum -lt 0)
 		{
 			$resultObject["KenPom2"] += ("" + $kenpom2)
 		}
