@@ -31,11 +31,11 @@ foreach($game in $games)
 	{
 		$seed1 = ($a -split "<DT>").split("<")[1].Trim()
 		$team1 = ($a -split 'href=')[1].split('>')[1].split("<")[0]
-		$kenpom1 = ./TeamNames.ps1 | Select-Fuzzy $team1
 		$k1Index = 1
-		$kenpom1 = ""
+		$kenpom1 = @()
 		if($team1.length -gt 0 -and $game.className.contains("round1"))
 		{
+			$kenpom1 = ./TeamNames.ps1 | Select-Fuzzy $team1
 			if($kenpom1.count -gt 1)
 			{
 				write-host "Bracket = $($team1)"
@@ -43,7 +43,7 @@ foreach($game in $games)
 				{
 					write-host "			KenPom = $($kenpom)"
 				}
-				$PromptText = "					(1-$($kenpom1.length))"
+				$PromptText = "							(1-$($kenpom1.length))"
 				$k1Index = Read-Host $PromptText
 			}
 		}
@@ -51,7 +51,7 @@ foreach($game in $games)
 		$seed2 = ($a -split "<BR>")[1].split("<")[0].Trim()
 		$team2 = ($a -split 'href=')[2].split('>')[1].split("<")[0]
 		$k2Index = 1
-		$kenpom2 = ""
+		$kenpom2 = @()
 		if($team2.length -gt 0 -and $game.className.contains("round1"))
 		{
 			$kenpom2 = ./TeamNames.ps1 | Select-Fuzzy $team2
@@ -62,7 +62,7 @@ foreach($game in $games)
 				{
 					write-host "			KenPom = $($kenpom)"
 				}
-				$PromptText = "					(1-$($kenpom2.length))"
+				$PromptText = "							(1-$($kenpom2.length))"
 				$k2Index = Read-Host $PromptText
 			}
 		}
@@ -71,25 +71,29 @@ foreach($game in $games)
 		$resultObject["Match"] += ("" + $game.id)
 		$resultObject["Round"] += ("" + $game.className)
 		$resultObject["Seed1"] += ("" + $seed1)
-		if($k1Index -eq 1)
+		[int]$intNum = [convert]::ToInt32($k1Index, 10)
+		$intNum = $intNum - 1
+		if($kenpom1.count-eq 1 -or $kenpom1 -eq "")
 		{
 			$resultObject["KenPom1"] += ("" + $kenpom1)
 		}
 		else
 		{
-			$resultObject["KenPom1"] += ("" + $kenpom1[$k1Index - 1])
+			$resultObject["KenPom1"] += ("" + $kenpom1[$intNum])
 		}
 		$resultObject["Bracket1"] += ("" + $team1)
 		$resultObject["Actual1"] += ("" + $score1)
 		$resultObject["Predict1"] += ("")
 		$resultObject["Seed2"] += ("" + $seed2)
-		if($k2Index -eq 1)
+		[int]$intNum = [convert]::ToInt32($k2Index, 10)
+		$intNum = $intNum - 1
+		if($kenpom2.count -eq 1 -or $kenpom2 -eq "")
 		{
 			$resultObject["KenPom2"] += ("" + $kenpom2)
 		}
 		else
 		{
-			$resultObject["KenPom2"] += ("" + $kenpom2[$k2Index - 1])
+			$resultObject["KenPom2"] += ("" + $kenpom2[$intNum])
 		}
 		$resultObject["Bracket2"] += ("" + $team2)
 		$resultObject["Predict2"] += ("")
