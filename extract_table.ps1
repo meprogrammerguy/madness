@@ -10,6 +10,7 @@ $tables = @($WebRequest.ParsedHtml.getElementsByTagName("TABLE"))
 $table = $tables[$TableNumber]
 $titles = @()
 $rows = @($table.Rows)
+$AllTeams = @()
 '@"' | Set-Content 'TeamNames.ps1'
 ## Go through all of the rows in the table
 foreach($row in $rows)
@@ -50,12 +51,12 @@ foreach($row in $rows)
         $resultObject[$title] = ("" + $cells[$cellcounter].InnerText).Trim()
 		if($title -eq "Team")
 		{
-			$cells[$cellcounter].InnerText.Trim().ToString() | Add-Content 'TeamNames.ps1'
+			$AllTeams += $cells[$cellcounter].InnerText.Trim().ToString()
 		}
     }
-
     ## And finally cast that hashtable to a PSCustomObject
 	[PSCustomObject] $resultObject
 }
-#.\TeamNames.ps1 | Sort-Object
+$AllTeams = $AllTeams | sort
+$AllTeams | Add-Content 'TeamNames.ps1'
 '"@ -split "`n"' | Add-Content 'TeamNames.ps1'

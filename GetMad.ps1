@@ -1,7 +1,7 @@
 <#
-    Powershell March madness script
+    Powershell March GetMad script
 #>
-$Host.UI.RawUI.WindowTitle = "Madness Script"
+$Host.UI.RawUI.WindowTitle = "GetMad Script"
 
 function GetElapsedTime([datetime]$starttime) 
 {
@@ -11,25 +11,33 @@ function GetElapsedTime([datetime]$starttime)
 }
 $script:startTime = Get-Date
 $wc = New-Object System.Net.WebClient
-write-host "Madness Script Started at $script:startTime" -foreground "green"
+write-host "GetMad WebPag Scraping Script Started at $script:startTime" -foreground "green"
 <#
     Opens the settings file
 #>
 cd $PSScriptRoot
 $CurrentUser = [Environment]::UserName
-[xml]$ConfigFile = Get-Content mad_tool.xml
-write-host "settings from $($PSScriptRoot)\mad_tool.xml" -foreground "yellow"
+[xml]$ConfigFile = Get-Content GetMad.xml
+write-host "settings from $($PSScriptRoot)\GetMad.xml" -foreground "yellow"
 write-host "Current user: $CurrentUser" -foreground "yellow"
 write-host "Current domain: $([Environment]::UserDomainName)" -foreground "yellow"
 write-host "Current machine: $([Environment]::MachineName)" -foreground "yellow"
 $WorkDirectory = [Environment]::GetFolderPath("Desktop") + "\madness"
+
+$FileExists = Test-Path $WorkDirectory 
+If ($FileExists -eq $True)
+{
+	Write-Host "Madness Directory Alread exists - Delete to re-run GetMad" -foreground "red"
+	exit
+}
+
 New-Item -ItemType Directory -Force -Path $WorkDirectory | Out-Null
 <#
-    kenpom stats page (turned off for now)
+    KenPom stats page
 #>
 
-$WebPage = $ConfigFile.Settings.MadTool.kenpom.WebPage
-$TableNumber = $ConfigFile.Settings.MadTool.kenpom.TableNumber
+$WebPage = $ConfigFile.Settings.GetMad.KenPom.WebPage
+$TableNumber = $ConfigFile.Settings.GetMad.KenPom.TableNumber
 $WebPage 
 $request = Invoke-WebRequest $WebPage
 $KenpomPath = $WorkDirectory + "\kenpom.csv"
@@ -39,7 +47,7 @@ Get-PSBreakpoint | Remove-PSBreakpoint
 <#
     espn bracket page
 #>
-$WebPage = $ConfigFile.Settings.MadTool.espn.WebPage
+$WebPage = $ConfigFile.Settings.GetMad.espn.WebPage
 $WebPage 
 $request = Invoke-WebRequest $WebPage
 $BracketPath = $WorkDirectory + "\bracket.csv"
