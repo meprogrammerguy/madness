@@ -40,6 +40,18 @@ foreach($r in $KenPomCSV)
 		$Table += $r.Team
 	}
 }
+$Bracket = $WorkDirectory + "\bracket.csv"
+$BracketCSV = Import-Csv -Path $Bracket -Header Match,Round,Seed1,KenPom1,Bracket1,Predict1,Actual1,Seed2,KenPom2
+$ATable=@()
+$BTable=@()
+foreach($r in $BracketCSV)
+{
+    if ($r.Match -notlike '#*' -and $r.Round.Contains(" round1 "))
+    {
+		$ATable += $r.KenPom1
+		$BTable += $r.KenPom2
+	}
+}
 cd $PSScriptRoot
 Convert-Path .
 $elapsed = GetElapsedTime $script:startTime
