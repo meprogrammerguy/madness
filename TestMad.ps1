@@ -1,6 +1,8 @@
 <#
     Powershell March TestMad script
 #>
+#Get-PSBreakpoint | Remove-PSBreakpoint
+#Set-PsBreakPoint TestMad.ps1 -Line 55
 $Host.UI.RawUI.WindowTitle = "TestMad Script"
 
 function GetElapsedTime([datetime]$starttime) 
@@ -40,6 +42,7 @@ foreach($r in $KenPomCSV)
 		$Table += $r.Team
 	}
 }
+$Table = $Table | sort
 $Bracket = $WorkDirectory + "\bracket.csv"
 $BracketCSV = Import-Csv -Path $Bracket -Header Match,Round,Seed1,KenPom1,Bracket1,Predict1,Actual1,Seed2,KenPom2
 $ATable=@()
@@ -50,6 +53,45 @@ foreach($r in $BracketCSV)
     {
 		$ATable += $r.KenPom1
 		$BTable += $r.KenPom2
+	}
+}
+$ACount = ($ATable | sort -Unique).count
+$BCount = ($BTable | sort -Unique).count 
+if($ACount -eq 32)
+{
+	Write-Host "All round 1 First Column Teams are Unique - good" -foreground "green"
+}
+else
+{
+	$ACount = 32 - $ACount
+	Write-Host "warning - $($ACount), round 1 First Column Teams are NOT Unique - bad" -foreground "yellow"
+}
+if($BCount -eq 32)
+{
+	Write-Host "All round 1 Second Column Teams are Unique - good" -foreground "green"
+}
+else
+{
+	$BCount = 32 - $BCount
+	Write-Host "warning - $($BCount), round 1 Second Column Teams are NOT Unique - bad" -foreground "yellow"
+}
+for ($i = 0; $i -lt 31; $i++)
+{
+	if($Table.contains($ATable[$i]))
+	{
+		Write-Host "Found $($ATable[$($i)]) - good" -foreground "green"
+	}
+	else
+	{
+		Write-Host "Did NOT find $($ATable[$($i)]) - bad" -foreground "red"
+	}
+	if($Table.contains($BTable[$i]))
+	{
+		Write-Host "Found $($BTable[$($i)]) - good" -foreground "green"
+	}
+	else
+	{
+		Write-Host "Did NOT find $($BTable[$($i)]) - bad"  -foreground "red"
 	}
 }
 cd $PSScriptRoot
