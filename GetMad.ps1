@@ -24,13 +24,18 @@ write-host "Current domain: $([Environment]::UserDomainName)" -foreground "yello
 write-host "Current machine: $([Environment]::MachineName)" -foreground "yellow"
 $WorkDirectory = [Environment]::GetFolderPath("Desktop") + "\madness"
 
+<#
 $FileExists = Test-Path $WorkDirectory 
 If ($FileExists -eq $True)
 {
-	.\TestMad.ps1
 	Write-Host "Madness Directory Alread exists - Delete to re-run GetMad" -foreground "red"
+	Write-Host "Press any key to continue ..." -foreground "magenta"
+	$x = $host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+	Write-Host "Testing for Valid KenPom Data - So far" -foreground "yellow"
+	.\TestMad.ps1
 	exit
 }
+#>
 
 New-Item -ItemType Directory -Force -Path $WorkDirectory | Out-Null
 <#
@@ -53,8 +58,10 @@ $WebPage
 $request = Invoke-WebRequest $WebPage
 $BracketPath = $WorkDirectory + "\bracket.csv"
 Get-PSBreakpoint | Remove-PSBreakpoint
-#Set-PsBreakPoint extract_bracket.ps1 -Line 74
+#Set-PsBreakPoint extract_bracket.ps1 -Line 33
+Set-PsBreakPoint extract_bracket.ps1 -Line 27
 .\extract_bracket.ps1 $request | Select-Object Match,Round,Seed1,KenPom1,Bracket1,Predict1,Actual1,Seed2,KenPom2,Bracket2,Predict2,Actual2 | Export-CSV $BracketPath
+Write-Host "Testing for Valid KenPom Data - So far" -foreground "yellow"
 .\TestMad.ps1
 cd $PSScriptRoot
 Convert-Path .
