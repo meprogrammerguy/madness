@@ -2,7 +2,7 @@
     Powershell March TestMad script
 #>
 #Get-PSBreakpoint | Remove-PSBreakpoint
-#Set-PsBreakPoint TestMad.ps1 -Line 55
+#Set-PsBreakPoint TestMad.ps1 -Line 78
 $Host.UI.RawUI.WindowTitle = "TestMad Script"
 
 function GetElapsedTime([datetime]$starttime) 
@@ -39,7 +39,7 @@ foreach($r in $KenPomCSV)
 {
     if ($r.Rank -notlike '#*')
     {
-		$Table += $r.Team
+		$Table += $r.Team.Trim()
 	}
 }
 $Table = $Table | sort
@@ -51,8 +51,8 @@ foreach($r in $BracketCSV)
 {
     if ($r.Match -notlike '#*' -and $r.Round.Contains(" round1 "))
     {
-		$ATable += $r.KenPom1
-		$BTable += $r.KenPom2
+		$ATable += $r.KenPom1.Trim()
+		$BTable += $r.KenPom2.Trim()
 	}
 }
 $ACount = ($ATable | sort -Unique).count
@@ -77,7 +77,7 @@ else
 }
 for ($i = 0; $i -lt 31; $i++)
 {
-	if($Table.contains($ATable[$i]))
+	if($Table -contains $ATable[$i])
 	{
 		Write-Host "Found $($ATable[$($i)]) - good" -foreground "green"
 	}
@@ -85,7 +85,7 @@ for ($i = 0; $i -lt 31; $i++)
 	{
 		Write-Host "Did NOT find $($ATable[$($i)]) - bad" -foreground "red"
 	}
-	if($Table.contains($BTable[$i]))
+	if($Table -contains $BTable[$i])
 	{
 		Write-Host "Found $($BTable[$($i)]) - good" -foreground "green"
 	}
