@@ -49,7 +49,7 @@ $request = Invoke-WebRequest $WebPage
 $KenpomPath = $WorkDirectory + "\kenpom.csv"
 Get-PSBreakpoint | Remove-PSBreakpoint
 #Set-PsBreakPoint extract_table.ps1 -Line 56
-.\extract_table.ps1 $request -TableNumber $TableNumber | Select-Object Rank,Team,AdjEM,AdjO,AdjD,AdjT,Luck,SOSAdjEM,OppO,OppD,NCSOSAdjEM  | Export-CSV $KenpomPath
+#.\extract_table.ps1 $request -TableNumber $TableNumber | Select-Object Rank,Team,AdjEM,AdjO,AdjD,AdjT,Luck,SOSAdjEM,OppO,OppD,NCSOSAdjEM  | Export-CSV $KenpomPath
 <#
     espn bracket page
 #>
@@ -59,7 +59,7 @@ $request = Invoke-WebRequest $WebPage
 $BracketPath = $WorkDirectory + "\bracket.csv"
 Get-PSBreakpoint | Remove-PSBreakpoint
 #Set-PsBreakPoint extract_bracket.ps1 -Line 33
-Set-PsBreakPoint extract_bracket.ps1 -Line 27
+Set-PsBreakPoint extract_bracket.ps1 -Line 38
 .\extract_bracket.ps1 $request | Select-Object Match,Round,Seed1,KenPom1,Bracket1,Predict1,Actual1,Seed2,KenPom2,Bracket2,Predict2,Actual2 | Export-CSV $BracketPath
 Write-Host "Testing for Valid KenPom Data - So far" -foreground "yellow"
 .\TestMad.ps1

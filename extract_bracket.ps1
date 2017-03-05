@@ -3,6 +3,16 @@ param(
     [Microsoft.PowerShell.Commands.HtmlWebResponseObject] $WebRequest
 )
 
+function ParseGoodness($data) 
+{
+	$retStr = ""
+	if(($data[1] -gt -1) -and ($data[2] -gt $data[1]))
+	{
+		$retStr = $data[0].Substring($data[1], $data[2] - $data[1]).Trim()
+	}
+	$retStr
+}
+
 Import-Module PowerShellFuzzySearch
 
 $games = @($WebRequest.ParsedHtml.getElementsByclassName("match round1 winnertop"))
@@ -19,15 +29,18 @@ $games += @($WebRequest.ParsedHtml.getElementsByclassName("match round6 winnerto
 $games += @($WebRequest.ParsedHtml.getElementsByclassName("match round6 winnerbot"))
 foreach($game in $games)
 {
-	$a = $game.outerHtml
+	$a = $game.innerHtml
 	$a = $a -replace '<B>',''
 	$a = $a -replace '</B>',''
 	$a = $a -replace '"',''
-	$a = "$($a)"
 	if($a.length -gt 0)
 	{
-		$seed1 = ($a -split "<DT>")[1].split("< A")[0].Trim()
-		$team1 = ($a -split "title=")[1].split("href=")[0].Trim()
+		$LeftPos = $a.IndexOf("<DT>") + 4
+		$RightPos = $a.IndexOf("<A")
+		$seed1 = ParseGoodness $a, $LeftPos, $RightPos
+		$LeftPos = $a.IndexOf("title=") + 6
+		$RightPos = $a.IndexOf("href=")
+		$team1 = ParseGoodness $a, $LeftPos, $RightPos
 		$k1Index = 0
 		$kenpom1 = @()
 		if($team1.length -gt 0 -and $game.className.contains("round1"))
