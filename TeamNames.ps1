@@ -9,17 +9,16 @@ Albany
 Alcorn St.
 American
 Appalachian St.
-Arizona 6
+Arizona
 Arizona St.
 Arkansas
-Arkansas Little Rock 12
 Arkansas Pine Bluff
 Arkansas St.
 Army
 Auburn
-Austin Peay 16
+Austin Peay
 Ball St.
-Baylor 5
+Baylor
 Belmont
 Bethune Cookman
 Binghamton
@@ -31,14 +30,14 @@ Bradley
 Brown
 Bryant
 Bucknell
-Buffalo 14
-Butler 9
+Buffalo
+Butler
 BYU
 Cal Poly
-Cal St. Bakersfield 15
+Cal St. Bakersfield
 Cal St. Fullerton
 Cal St. Northridge
-California 4
+California
 Campbell
 Canisius
 Central Arkansas
@@ -46,24 +45,24 @@ Central Connecticut
 Central Michigan
 Charleston Southern
 Charlotte
-Chattanooga 12
+Chattanooga
 Chicago St.
-Cincinnati 9
+Cincinnati
 Clemson
 Cleveland St.
 Coastal Carolina
 Colgate
 College of Charleston
-Colorado 8
+Colorado
 Colorado St.
 Columbia
-Connecticut 9
+Connecticut
 Coppin St.
 Cornell
 Creighton
 Dartmouth
 Davidson
-Dayton 7
+Dayton
 Delaware
 Delaware St.
 Denver
@@ -71,7 +70,7 @@ DePaul
 Detroit
 Drake
 Drexel
-Duke 4
+Duke
 Duquesne
 East Carolina
 East Tennessee St.
@@ -82,15 +81,16 @@ Eastern Washington
 Elon
 Evansville
 Fairfield
-Fairleigh Dickinson 16
+Fairleigh Dickinson
 FIU
 Florida
 Florida A&M
 Florida Atlantic
-Florida Gulf Coast 16
+Florida Gulf Coast
 Florida St.
 Fordham
-Fresno St. 14
+Fort Wayne
+Fresno St.
 Furman
 Gardner Webb
 George Mason
@@ -100,17 +100,17 @@ Georgia
 Georgia Southern
 Georgia St.
 Georgia Tech
-Gonzaga 11
+Gonzaga
 Grambling St.
 Grand Canyon
-Green Bay 14
-Hampton 16
+Green Bay
+Hampton
 Hartford
 Harvard
-Hawaii 13
+Hawaii
 High Point
 Hofstra
-Holy Cross 16
+Holy Cross
 Houston
 Houston Baptist
 Howard
@@ -120,28 +120,28 @@ Illinois
 Illinois Chicago
 Illinois St.
 Incarnate Word
-Indiana 5
+Indiana
 Indiana St.
-Iona 13
-Iowa 7
-Iowa St. 4
-IPFW
+Iona
+Iowa
+Iowa St.
 IUPUI
 Jackson St.
 Jacksonville
 Jacksonville St.
 James Madison
-Kansas 1
+Kansas
 Kansas St.
 Kennesaw St.
 Kent St.
-Kentucky 4
+Kentucky
 La Salle
 Lafayette
 Lamar
 Lehigh
 Liberty
 Lipscomb
+Little Rock
 LIU Brooklyn
 Long Beach St.
 Longwood
@@ -158,17 +158,17 @@ Manhattan
 Marist
 Marquette
 Marshall
-Maryland 5
+Maryland
 Maryland Eastern Shore
 Massachusetts
 McNeese St.
 Memphis
 Mercer
-Miami FL 3
+Miami FL
 Miami OH
-Michigan 11
-Michigan St. 2
-Middle Tennessee 15
+Michigan
+Michigan St.
+Middle Tennessee
 Milwaukee
 Minnesota
 Mississippi
@@ -195,7 +195,7 @@ Niagara
 Nicholls St.
 NJIT
 Norfolk St.
-North Carolina 1
+North Carolina
 North Carolina A&T
 North Carolina Central
 North Carolina St.
@@ -207,32 +207,32 @@ Northeastern
 Northern Arizona
 Northern Colorado
 Northern Illinois
-Northern Iowa 11
+Northern Iowa
 Northern Kentucky
 Northwestern
 Northwestern St.
-Notre Dame 6
+Notre Dame
 Oakland
 Ohio
 Ohio St.
-Oklahoma 2
+Oklahoma
 Oklahoma St.
 Old Dominion
 Oral Roberts
-Oregon 1
-Oregon St. 7
+Oregon
+Oregon St.
 Pacific
 Penn
 Penn St.
 Pepperdine
-Pittsburgh 10
+Pittsburgh
 Portland
 Portland St.
 Prairie View A&M
 Presbyterian
 Princeton
-Providence 9
-Purdue 5
+Providence
+Purdue
 Quinnipiac
 Radford
 Rhode Island
@@ -243,7 +243,7 @@ Robert Morris
 Rutgers
 Sacramento St.
 Sacred Heart
-Saint Joseph's 8
+Saint Joseph's
 Saint Louis
 Saint Mary's
 Saint Peter's
@@ -256,7 +256,7 @@ San Jose St.
 Santa Clara
 Savannah St.
 Seattle
-Seton Hall 6
+Seton Hall
 Siena
 SIU Edwardsville
 SMU
@@ -264,11 +264,11 @@ South Alabama
 South Carolina
 South Carolina St.
 South Dakota
-South Dakota St. 12
+South Dakota St.
 South Florida
 Southeast Missouri St.
 Southeastern Louisiana
-Southern 16
+Southern
 Southern Illinois
 Southern Miss
 Southern Utah
@@ -277,28 +277,28 @@ St. Francis NY
 St. Francis PA
 St. John's
 Stanford
-Stephen F. Austin 14
+Stephen F. Austin
 Stetson
-Stony Brook 13
-Syracuse 10
+Stony Brook
+Syracuse
 TCU
-Temple 10
+Temple
 Tennessee
 Tennessee Martin
 Tennessee St.
 Tennessee Tech
-Texas 6
-Texas A&M 3
+Texas
+Texas A&M
 Texas A&M Corpus Chris
 Texas Southern
 Texas St.
-Texas Tech 8
+Texas Tech
 The Citadel
 Toledo
 Towson
 Troy
 Tulane
-Tulsa 11
+Tulsa
 UAB
 UC Davis
 UC Irvine
@@ -309,45 +309,45 @@ UCLA
 UMass Lowell
 UMBC
 UMKC
-UNC Asheville 15
+UNC Asheville
 UNC Greensboro
-UNC Wilmington 13
+UNC Wilmington
 UNLV
-USC 8
+USC
 USC Upstate
 UT Arlington
 UT Rio Grande Valley
-Utah 3
+Utah
 Utah St.
 Utah Valley
 UTEP
 UTSA
 Valparaiso
-Vanderbilt 11
-VCU 10
+Vanderbilt
+VCU
 Vermont
-Villanova 2
-Virginia 1
+Villanova
+Virginia
 Virginia Tech
 VMI
 Wagner
 Wake Forest
 Washington
 Washington St.
-Weber St. 15
-West Virginia 3
+Weber St.
+West Virginia
 Western Carolina
 Western Illinois
 Western Kentucky
 Western Michigan
-Wichita St. 11
+Wichita St.
 William & Mary
 Winthrop
-Wisconsin 7
+Wisconsin
 Wofford
 Wright St.
 Wyoming
-Xavier 2
-Yale 12
+Xavier
+Yale
 Youngstown St.
 "@ -split "`n"

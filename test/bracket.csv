@@ -1,0 +1,65 @@
+#TYPE Selected.System.Management.Automation.PSCustomObject,,,,,,,,,,,
+Match,Round,Seed1,KenPom1,Bracket1,Predict1,Actual1,Seed2,KenPom2,Bracket2,Predict2,Actual2
+match1,match round1 winnertop,1,Kansas,Kansas,,105,16,Austin Peay,Austin Peay,,79
+match6,match round1 winnertop,3,Miami FL,Miami,,79,14,Buffalo,Buffalo,,72
+match17,match round1 winnerbot,8,Texas Tech,Texas Tech,,61,9,Butler,Butler,,71
+match23,match round1 winnertop,2,Oklahoma,Oklahoma,,82,15,Cal St. Bakersfield,CSU Bakersfield,,68
+match1,match round1 winnertop,1,North Carolina,North Carolina,,83,16,Florida Gulf Coast,Florida Gulf Coast,,67
+match3,match round1 winnertop,5,Indiana,Indiana,,99,12,Chattanooga,Chattanooga,,74
+match17,match round1 winnertop,8,Saint Joseph's,Saint Joseph's,,78,9,Cincinnati,Cincinnati,,76
+match2,match round1 winnerbot,8,Colorado,Colorado,,67,9,Connecticut,Connecticut,,74
+match21,match round1 winnertop,3,Utah,Utah,,80,14,Fresno St.,Fresno State,,69
+match20,match round1 winnerbot,6,Seton Hall,Seton Hall,,52,11,Gonzaga,Gonzaga,,68
+match21,match round1 winnertop,3,Texas A&M,Texas A&M,,92,14,Green Bay,Green Bay,,65
+match16,match round1 winnertop,1,Virginia,Virginia,,81,16,Hampton,Hampton,,45
+match4,match round1 winnerbot,4,California,California,,66,13,Hawaii,Hawaii,,77
+match16,match round1 winnertop,1,Oregon,Oregon,,91,16,Holy Cross,Holy Cross,,52
+match19,match round1 winnertop,4,Iowa St.,Iowa State,,94,13,Iona,Iona,,81
+match18,match round1 winnerbot,5,Purdue,Purdue,,83,12,Little Rock,Little Rock,,85
+match5,match round1 winnertop,6,Notre Dame,Notre Dame,,70,11,Michigan,Michigan,,63
+match23,match round1 winnerbot,2,Michigan St.,Michigan State,,81,15,Middle Tennessee,Middle Tennessee,,90
+match20,match round1 winnerbot,6,Texas,Texas,,72,11,Northern Iowa,Northern Iowa,,75
+match7,match round1 winnertop,7,Wisconsin,Wisconsin,,47,10,Pittsburgh,Pittsburgh,,43
+match2,match round1 winnerbot,8,USC,USC,,69,9,Providence,Providence,,70
+match3,match round1 winnertop,5,Maryland,Maryland,,79,12,South Dakota St.,South Dakota State,,74
+match6,match round1 winnerbot,3,West Virginia,West Virginia,,56,14,Stephen F. Austin,Stephen F. Austin,,70
+match4,match round1 winnertop,4,Kentucky,Kentucky,,85,13,Stony Brook,Stony Brook,,57
+match22,match round1 winnerbot,7,Dayton,Dayton,,51,10,Syracuse,Syracuse,,70
+match7,match round1 winnertop,7,Iowa,Iowa,,72,10,Temple,Temple,,70
+match8,match round1 winnertop,2,Villanova,Villanova,,86,15,UNC Asheville,UNC Asheville,,56
+match19,match round1 winnertop,4,Duke,Duke,,93,13,UNC Wilmington,UNC Wilmington,,85
+match22,match round1 winnerbot,7,Oregon St.,Oregon State,,67,10,VCU,VCU,,75
+match8,match round1 winnertop,2,Xavier,Xavier,,71,15,Weber St.,Weber State,,53
+match5,match round1 winnerbot,6,Arizona,Arizona,,55,11,Wichita St.,Wichita State,,65
+match18,match round1 winnerbot,5,Baylor,Baylor,,75,12,Yale,Yale,,79
+match9,match round2 winnertop,1,,Kansas,,73,9,,Connecticut,,61
+match10,match round2 winnertop,5,,Maryland,,73,13,,Hawaii,,60
+match24,match round2 winnertop,1,,Oregon,,69,8,,Saint Joseph's,,64
+match9,match round2 winnertop,1,,North Carolina,,85,9,,Providence,,66
+match10,match round2 winnertop,5,,Indiana,,73,4,,Kentucky,,67
+match11,match round2 winnertop,6,,Notre Dame,,76,14,,Stephen F. Austin,,75
+match12,match round2 winnertop,7,,Wisconsin,,66,2,,Xavier,,63
+match24,match round2 winnertop,1,,Virginia,,77,9,,Butler,,69
+match26,match round2 winnertop,11,,Gonzaga,,82,3,,Utah,,59
+match27,match round2 winnertop,10,,Syracuse,,75,15,,Middle Tennessee,,50
+match11,match round2 winnerbot,11,,Wichita State,,57,3,,Miami,,65
+match12,match round2 winnerbot,7,,Iowa,,68,2,,Villanova,,87
+match25,match round2 winnerbot,12,,Yale,,64,4,,Duke,,71
+match26,match round2 winnerbot,11,,Northern Iowa,,88,3,,Texas A&M,,92
+match27,match round2 winnerbot,10,,VCU,,81,2,,Oklahoma,,85
+match25,match round2 winnerbot,12,,Little Rock,,61,4,,Iowa State,,78
+match13,match round3 winnertop,1,,Kansas,,79,5,,Maryland,,63
+match28,match round3 winnertop,1,,Oregon,,82,4,,Duke,,68
+match13,match round3 winnertop,1,,North Carolina,,101,5,,Indiana,,86
+match14,match round3 winnertop,6,,Notre Dame,,61,7,,Wisconsin,,56
+match28,match round3 winnertop,1,,Virginia,,84,4,,Iowa State,,71
+match14,match round3 winnerbot,3,,Miami,,69,2,,Villanova,,92
+match29,match round3 winnerbot,3,,Texas A&M,,63,2,,Oklahoma,,77
+match29,match round3 winnerbot,11,,Gonzaga,,60,10,,Syracuse,,63
+match15,match round4 winnertop,1,,North Carolina,,88,6,,Notre Dame,,74
+match15,match round4 winnerbot,1,,Kansas,,59,2,,Villanova,,64
+match30,match round4 winnerbot,1,,Oregon,,68,2,,Oklahoma,,80
+match30,match round4 winnerbot,1,,Virginia,,62,10,,Syracuse,,68
+match61,match round5 winnertop,2,,Villanova,,95,2,,Oklahoma,,51
+match62,match round5 winnertop,1,,North Carolina,,83,10,,Syracuse,,66
+match63,match round6 winnertop,2,,Villanova,,77,1,,North Carolina,,74
