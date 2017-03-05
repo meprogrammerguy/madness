@@ -95,9 +95,3 @@ for ($i = 0; $i -lt 31; $i++)
 	}
 }
 cd $PSScriptRoot
-Convert-Path .
-$elapsed = GetElapsedTime $script:startTime
-write-host "Total Elapsed Time: " $elapsed -foreground "yellow"
-write-host "Script Ended at $(get-date)" -foreground "green"
-Write-Host "Press any key to continue ..." -foreground "magenta"
-$x = $host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")

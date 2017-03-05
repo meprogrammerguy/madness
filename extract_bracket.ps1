@@ -4,11 +4,16 @@ param(
 )
 
 function ParseGoodness($data) 
-{
+{	$a = $data[0]
+	$b = $data[1]
+	$c = $data[2]
+	$LeftPos = $a.IndexOf($b) + $b.length
+	$d = $a.Substring($LeftPos)
+	$RightPos = $d.IndexOf($c)
 	$retStr = ""
-	if(($data[1] -gt -1) -and ($data[2] -gt $data[1]))
+	if(($RightPos -gt 0) -and ($d.length -gt ""))
 	{
-		$retStr = $data[0].Substring($data[1], $data[2] - $data[1]).Trim()
+		$retStr = $d.Substring(0, $RightPos).Trim()
 	}
 	$retStr
 }
@@ -33,14 +38,12 @@ foreach($game in $games)
 	$a = $a -replace '<B>',''
 	$a = $a -replace '</B>',''
 	$a = $a -replace '"',''
+	$a = $a -replace 'amp;',''
+	$a = $a -replace "'i",'i'
 	if($a.length -gt 0)
 	{
-		$LeftPos = $a.IndexOf("<DT>") + 4
-		$RightPos = $a.IndexOf("<A")
-		$seed1 = ParseGoodness $a, $LeftPos, $RightPos
-		$LeftPos = $a.IndexOf("title=") + 6
-		$RightPos = $a.IndexOf("href=")
-		$team1 = ParseGoodness $a, $LeftPos, $RightPos
+		$seed1 = ParseGoodness $a, "<DT>", "<A"
+		$team1 = ParseGoodness $a, "title=", "href="
 		$k1Index = 0
 		$kenpom1 = @()
 		if($team1.length -gt 0 -and $game.className.contains("round1"))
@@ -57,9 +60,10 @@ foreach($game in $games)
 				$k1Index = Read-Host $PromptText
 			}
 		}
-		$score1 = ($a -split "pointer")[1].split(">")[1].split("<")[0] 
-		$seed2 = ($a -split "<BR>")[1].split("< A")[0].Trim()
-		$team2 = ($a -split "title=")[2].split("href=")[0].Trim()
+		$score1 = ParseGoodness $a, "pointer>", "<"
+		$b = $a.Substring($a.IndexOf("<BR>"))
+		$seed2 = ParseGoodness $b, "<BR>", "<A"
+		$team2 = ParseGoodness $b, "title=", "href="
 		$k2Index = 0
 		$kenpom2 = @()
 		if($team2.length -gt 0 -and $game.className.contains("round1"))
@@ -76,7 +80,7 @@ foreach($game in $games)
 				$k2Index = Read-Host $PromptText
 			}
 		}
-		$score2 = ($a -split "pointer")[1].split(">")[2].split("<")[0]
+		$score2 = ParseGoodness $b, "pointer>", "<"
 		$resultObject = [Ordered] @{}
 		$resultObject["Match"] += ("" + $game.id).Trim()
 		$resultObject["Round"] += ("" + $game.className).Trim()
