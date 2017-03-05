@@ -80,7 +80,7 @@ foreach($game in $games)
 				$k2Index = Read-Host $PromptText
 			}
 		}
-		$score2 = ParseGoodness $b, "pointer>", "<"
+		$score2 = ParseGoodness $b.Substring(1), "<BR>", "<"
 		$resultObject = [Ordered] @{}
 		$resultObject["Match"] += ("" + $game.id).Trim()
 		$resultObject["Round"] += ("" + $game.className).Trim()
