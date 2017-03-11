@@ -4,6 +4,9 @@
 		<KenPom>
 			<WebPage>http://kenpom.com/index.php?y=2017</WebPage>
 			<TableNumber>0</TableNumber>
+			<AverageOffense>100</AverageOffense>
+			<AverageDefense>100</AverageDefense>
+			<AverageTempo>70</AverageTempo>
 		</KenPom>
 		<espn>
 			<WebPage>http://www.espn.com/mens-college-basketball/tournament/bracket</WebPage>

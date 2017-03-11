@@ -64,7 +64,7 @@ if($ACount -eq 32)
 else
 {
 	$ACount = 32 - $ACount
-	Write-Host "warning - $($ACount), round 1 First Column Teams are NOT Unique - bad" -foreground "yellow"
+	Write-Host "warning - $($ACount), round 1 First Column Teams are NOT Unique - bad" -foreground "red"
 }
 if($BCount -eq 32)
 {
@@ -73,7 +73,7 @@ if($BCount -eq 32)
 else
 {
 	$BCount = 32 - $BCount
-	Write-Host "warning - $($BCount), round 1 Second Column Teams are NOT Unique - bad" -foreground "yellow"
+	Write-Host "warning - $($BCount), round 1 Second Column Teams are NOT Unique - bad" -foreground "red"
 }
 for ($i = 0; $i -lt 31; $i++)
 {
