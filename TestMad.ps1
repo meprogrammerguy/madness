@@ -5,14 +5,7 @@
 #Set-PsBreakPoint TestMad.ps1 -Line 78
 $Host.UI.RawUI.WindowTitle = "TestMad Script"
 
-function GetElapsedTime([datetime]$starttime) 
-{
-  $runtime = $(get-date) - $starttime
-  $retStr = [string]::format("{0} hours(s), {1} minutes(s), {2} seconds(s)", $runtime.Hours, $runtime.Minutes, $runtime.Seconds)
-  $retStr
-}
 $script:startTime = Get-Date
-$wc = New-Object System.Net.WebClient
 write-host "TestMad Table Checking Script Started at $script:startTime" -foreground "green"
 <#
     Opens the settings file
