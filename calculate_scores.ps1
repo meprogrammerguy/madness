@@ -3,6 +3,7 @@
 #>
 #Get-PSBreakpoint | Remove-PSBreakpoint
 #Set-PsBreakPoint calculate_scores.ps1 -Line 41
+#$Scores = .\calculate_scores.ps1 "Gonzaga" "Villanova"
 param(
     [Parameter(Mandatory = $true)]
     [string] $TeamA,
@@ -34,11 +35,35 @@ If ($FileExists -eq $False)
 $KenPom = $WorkDirectory + "\kenpom.csv"
 $KenPomCSV = Import-Csv -Path $KenPom -Header Rank,Team,AdjEM,AdjO,AdjD,AdjT
 $Stats = @()
+$Index = -1
+$TeamAIndex = -1
+$TeamBIndex = -1
 foreach($r in $KenPomCSV)
 {
-    if ($r.Rank -notlike '#*' -and $r.Rank -ne "Rank")
+    if($r.Rank -notlike '#*' -and $r.Rank -ne "Rank")
     {
+		$Index++
+		if($r.Team.Trim() -eq $TeamA)
+		{
+			$TeamAIndex = $Index
+		}
+		if($r.Team.Trim() -eq $TeamB)
+		{
+			$TeamBIndex = $Index
+		}
 		$Stats += @{Team = $r.Team.Trim(); AdjEM = $r.AdjEM.Trim(); AdjO = $r.AdjO.Trim(); AdjD = $r.AdjD.Trim(); AdjT = $r.AdjT;}
 	}
 }
-$i = 5
+$AverageOffense = $ConfigFile.Settings.GetMad.KenPom.AverageOffense
+$AverageDefense = $ConfigFile.Settings.GetMad.KenPom.AverageDefense
+$AverageTempo = $ConfigFile.Settings.GetMad.KenPom.AverageTempo
+$ScoreA = "?"
+if($TeamAIndex -gt -1)
+{
+}
+$ScoreB = "?"
+if($TeamBIndex -gt -1)
+{
+}
+$Scores = @($ScoreA, $ScoreB)
+Write-Output $Scores
