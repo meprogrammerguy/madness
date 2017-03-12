@@ -58,12 +58,15 @@ $AverageOffense = $ConfigFile.Settings.GetMad.KenPom.AverageOffense
 $AverageDefense = $ConfigFile.Settings.GetMad.KenPom.AverageDefense
 $AverageTempo = $ConfigFile.Settings.GetMad.KenPom.AverageTempo
 $ScoreA = "?"
-if($TeamAIndex -gt -1)
-{
-}
 $ScoreB = "?"
-if($TeamBIndex -gt -1)
+if($TeamAIndex -gt -1 -and $TeamBIndex -gt -1)
 {
+	$Possessions = (($Stats[$TeamAIndex].AdjT/$AverageTempo)*($Stats[$TeamBIndex].AdjT/$AverageTempo))*$AverageTempo
+	$Possessions = [math]::Round($Possessions)
+	$ScoreA = (((($Stats[$TeamAIndex].AdjO/100)*($Stats[$TeamBIndex].AdjD/100))*($AverageOffense/100)))*$Possessions
+	$ScoreA = [math]::Round($ScoreA)
+	$ScoreB = (((($Stats[$TeamBIndex].AdjO/100)*($Stats[$TeamAIndex].AdjD/100))*($AverageOffense/100)))*$Possessions
+	$ScoreB = [math]::Round($ScoreB)
 }
 $Scores = @($ScoreA, $ScoreB)
 Write-Output $Scores
