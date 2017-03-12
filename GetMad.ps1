@@ -56,9 +56,8 @@ $WebPage
 $request = Invoke-WebRequest $WebPage
 $BracketPath = $WorkDirectory + "\bracket.csv"
 Get-PSBreakpoint | Remove-PSBreakpoint
-#Set-PsBreakPoint extract_bracket.ps1 -Line 33
-#Set-PsBreakPoint extract_bracket.ps1 -Line 83
-.\extract_bracket.ps1 $request | Select-Object Match,Round,Seed1,KenPom1,Bracket1,Predict1,Actual1,Seed2,KenPom2,Bracket2,Predict2,Actual2 | Export-CSV $BracketPath
+#Set-PsBreakPoint extract_bracket.ps1 -Line 31
+.\extract_bracket.ps1 $request | Select-Object Match,Round,Seed1,KenPom1,Bracket1,Predict1,Seed2,KenPom2,Bracket2,Predict2 | Export-CSV $BracketPath
 Write-Host "Testing for Valid KenPom Data - So far" -foreground "yellow"
 .\TestMad.ps1
 cd $PSScriptRoot

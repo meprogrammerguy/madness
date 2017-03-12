@@ -20,18 +20,12 @@ function ParseGoodness($data)
 
 Import-Module PowerShellFuzzySearch
 
-$games = @($WebRequest.ParsedHtml.getElementsByclassName("match round1 winnertop"))
-$games += @($WebRequest.ParsedHtml.getElementsByclassName("match round1 winnerbot"))
-$games += @($WebRequest.ParsedHtml.getElementsByclassName("match round2 winnertop"))
-$games += @($WebRequest.ParsedHtml.getElementsByclassName("match round2 winnerbot"))
-$games += @($WebRequest.ParsedHtml.getElementsByclassName("match round3 winnertop"))
-$games += @($WebRequest.ParsedHtml.getElementsByclassName("match round3 winnerbot"))
-$games += @($WebRequest.ParsedHtml.getElementsByclassName("match round4 winnertop"))
-$games += @($WebRequest.ParsedHtml.getElementsByclassName("match round4 winnerbot"))
-$games += @($WebRequest.ParsedHtml.getElementsByclassName("match round5 winnertop"))
-$games += @($WebRequest.ParsedHtml.getElementsByclassName("match round5 winnerbot"))
-$games += @($WebRequest.ParsedHtml.getElementsByclassName("match round6 winnertop"))
-$games += @($WebRequest.ParsedHtml.getElementsByclassName("match round6 winnerbot"))
+$games = @($WebRequest.ParsedHtml.getElementsByclassName("match round1"))
+$games += @($WebRequest.ParsedHtml.getElementsByclassName("match round2"))
+$games += @($WebRequest.ParsedHtml.getElementsByclassName("match round3"))
+$games += @($WebRequest.ParsedHtml.getElementsByclassName("match round4"))
+$games += @($WebRequest.ParsedHtml.getElementsByclassName("match round5"))
+$games += @($WebRequest.ParsedHtml.getElementsByclassName("match round6"))
 foreach($game in $games)
 {
 	$a = $game.innerHtml
@@ -60,27 +54,29 @@ foreach($game in $games)
 				$k1Index = Read-Host $PromptText
 			}
 		}
-		$score1 = ParseGoodness $a, "pointer>", "<"
-		$b = $a.Substring($a.IndexOf("<BR>"))
-		$seed2 = ParseGoodness $b, "<BR>", "<A"
-		$team2 = ParseGoodness $b, "title=", "href="
-		$k2Index = 0
-		$kenpom2 = @()
-		if($team2.length -gt 0 -and $game.className.contains("round1"))
+		$IndexTest = $a.IndexOf("<BR>")
+		if($IndexTest -ge 0)
 		{
-			$kenpom2 = ./TeamNames.ps1 | Select-Fuzzy $team2
-			if($kenpom2.count -gt 1)
+			$b = $a.Substring($IndexTest)
+			$seed2 = ParseGoodness $b, "<BR>", "<A"
+			$team2 = ParseGoodness $b, "title=", "href="
+			$k2Index = 0
+			$kenpom2 = @()
+			if($team2.length -gt 0 -and $game.className.contains("round1"))
 			{
-				write-host "Bracket = $($team2)"
-				foreach($kenpom in $kenpom2)
+				$kenpom2 = ./TeamNames.ps1 | Select-Fuzzy $team2
+				if($kenpom2.count -gt 1)
 				{
-					write-host "			KenPom = $($kenpom)"
+					write-host "Bracket = $($team2)"
+					foreach($kenpom in $kenpom2)
+					{
+						write-host "			KenPom = $($kenpom)"
+					}
+					$PromptText = "							(1-$($kenpom2.length))"
+					$k2Index = Read-Host $PromptText
 				}
-				$PromptText = "							(1-$($kenpom2.length))"
-				$k2Index = Read-Host $PromptText
 			}
 		}
-		$score2 = ParseGoodness $b.Substring(1), "<BR>", "<"
 		$resultObject = [Ordered] @{}
 		$resultObject["Match"] += ("" + $game.id).Trim()
 		$resultObject["Round"] += ("" + $game.className).Trim()
@@ -96,7 +92,6 @@ foreach($game in $games)
 			$resultObject["KenPom1"] += ("" + $kenpom1[$intNum]).Trim()
 		}
 		$resultObject["Bracket1"] += ("" + $team1).Trim()
-		$resultObject["Actual1"] += ("" + $score1).Trim()
 		$resultObject["Predict1"] += ("").Trim()
 		$resultObject["Seed2"] += ("" + $seed2).Trim()
 		[int]$intNum = [convert]::ToInt32($k2Index, 10)
@@ -111,7 +106,6 @@ foreach($game in $games)
 		}
 		$resultObject["Bracket2"] += ("" + $team2).Trim()
 		$resultObject["Predict2"] += ("").Trim()
-		$resultObject["Actual2"] += ("" + $score2).Trim()
 		[PSCustomObject] $resultObject
 	}
 } 	
