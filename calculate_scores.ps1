@@ -13,17 +13,12 @@ param(
 $Host.UI.RawUI.WindowTitle = "calculate_scores Script"
 
 $script:startTime = Get-Date
-write-host "calculate_scores Script Started at $script:startTime" -foreground "green"
 <#
     Opens the settings file
 #>
 cd $PSScriptRoot
 $CurrentUser = [Environment]::UserName
 [xml]$ConfigFile = Get-Content GetMad.xml
-write-host "settings from $($PSScriptRoot)\GetMad.xml" -foreground "yellow"
-write-host "Current user: $CurrentUser" -foreground "yellow"
-write-host "Current domain: $([Environment]::UserDomainName)" -foreground "yellow"
-write-host "Current machine: $([Environment]::MachineName)" -foreground "yellow"
 $WorkDirectory = [Environment]::GetFolderPath("Desktop") + "\madness"
 
 $FileExists = Test-Path $WorkDirectory 
