@@ -1,0 +1,350 @@
+I was just wondering if someone could help me out with something I am trying to program for the NCAA tournament.  I have written a function called "readInSeeds" that will read in the seeded teams from a file (seeds -- see below) and put them in the leaves of a binary tree. What I want to do is ask the user for his predictions for the tournament (So I want to be able to ask the user: Who will win (1) Duke or (2) Mammoth? and if they choose Duke then Duke's and Mammoth's parent becomes Duke and this continues all the way to the root of the tree which for me will be the NCAA Basketball Champion) and then store the predictions in the nodes of the tournament tree. After all predictions have been stored I want to be able write the tree to a file.  Below is what I have done so far what I need help with is storing the user's predictions in the leaves of the tournament tree.
+
+//
+// tree.h
+// This is the header file for tree routines
+
+
+#ifndef _TREE_H_
+#define _TREE_H_
+
+#include <stdio.h>
+
+
+struct ts {
+  char team[50];
+  struct ts * parent;
+  struct ts * lchild;
+  struct ts * rchild;
+};
+
+typedef struct ts tree;
+
+/////////////////////////////////////
+// This creates a new tree node --
+// all pointers are initialized to NULL
+/////////////////////////////////////
+tree * newTreeNode();
+
+
+/////////////////////////////////////
+// This reads in a tournament tree 
+// from a file
+/////////////////////////////////////
+tree * readInSeeds(FILE *fp, int level);
+
+
+
+
+
+
+#endif
+
+
+
+
+//
+// tree.c
+// This is the c file for tree routines
+
+#include "tree.h"
+#include <string.h>
+
+tree * newTreeNode(){
+  tree * tmp;
+  tmp = (tree *)malloc(sizeof(tree));
+  tmp->parent = NULL;
+  tmp->lchild = NULL;
+  tmp->rchild = NULL;
+  tmp->team[0] = '\0';
+  return tmp;
+}
+
+
+//////////////////////////////////////////
+// This builds a tournament tree from a
+// file of seeded teams.
+////////////////////////////////////////////
+tree * readInSeeds(FILE * fp, int level){
+  tree * t = newTreeNode();
+  if (level == 0) {
+    // at lowest level, read in a name
+    fscanf(fp,"%s", t->team);
+  } else { 
+    // making an internal node -create subtrees then hook
+    // them in
+    t->lchild  = readInSeeds(fp, level-1);
+    t->lchild->parent = t;
+    t->rchild  = readInSeeds(fp, level-1);
+    t->rchild->parent = t;
+    t->team[0]='\0';
+  };
+  return t;
+}
+
+
+
+
+///////////////////////////////////////////////////
+// main.c
+// March madness main file
+///////////////////////////////////////////////////
+
+#include "tree.h"
+#include <stdio.h>
+
+#define TOTALROUNDS 6
+
+int main (int argc, char *argv[]) {
+  //  char * fname = argv[1];
+  char * fname = "seeds";
+  FILE * fp;
+  tree * tournament;
+
+  // fp is the file opened for reading
+  fp = fopen(fname, "r");
+  // would be NULL if there was no such file
+  if (fp == NULL) {
+    printf("Error. Cannot read %s \n", fname);
+  }
+  
+  //////////////////////////////////////////////
+  // read teams into tournament tree
+  /////////////////////////////////////////////
+  tournament = readInSeeds(fp, TOTALROUNDS);
+
+  // close the file
+  fclose(fp);
+
+
+}
+
+The seeds file:
+
+
+Duke
+Monmouth_NJ
+Georgia
+Missouri
+Ohio_State
+Utah_State
+UCLA
+Hofstra
+USC
+Oklahoma_State
+Boston_College
+Southern_Utah
+Iowa
+Creighton
+Kentucky
+Holy_Cross
+Stanford
+NC_Greensboro
+Georgia_tech
+St_Josephs_Pa
+Cincinnati
+BYU
+Indiana
+Kent_State
+Wisconsin
+Georgia_State
+Maryland
+George_Mason
+Arkansas
+Georgetown
+Iowa_State
+Hampton
+Illinois
+Northwestern_State_Winthrop
+Tennessee
+NC_Charlotte
+Syracuse
+Hawaii
+Kansas
+CS_Northridge
+Notre_Dame
+Xavier
+Mississippi
+Iona
+Wake_Forest
+Butler
+Arizona
+Eastern_Illinois
+Michegan_State
+Alabama_State
+California
+Fresno_State
+Virginia
+Gonzaga
+Oklahoma
+Indiana_State
+Texas
+Temple
+Florida
+Western_Kentucky
+Penn_State
+Providence
+North_Carolina
+Princeton
+ Comment
+Question by:
+nedc2001
+  ==
+Homework?
+
+A couple of starting points:
+
+Add another element to the tree node structure called
+level and initialise the level of the node in the
+readInSeeds() function just after you set the team
+element to '\0'. Although not necessary, it will help 
+you format your output later.
+
+You should also have a function to free the malloced memory
+like this:
+
+void freeTreeNode(tree *t)
+{
+  if ( t==NULL )
+    return;
+  // free the left node
+  freeTreeNode(t->lchild);
+  // free the right node
+  freeTreeNode(t->rchild);
+  // free the current node
+  free(t);
+}
+
+You'll need a function to get the user's predictions:
+
+void
+predict(tree *t)
+{
+  if ( *(t->lchild->team)!='\0' && *(t->rchild->team)!='\0' )
+  {
+    get the user's prediciton between teams (lchild and rchild)
+    and store the selection in the current node: t.
+  }
+  else {
+    get the predictions for the left child
+    then
+    get the predictions for the right child
+  }
+}
+
+you'll need a function to print the results, I'll leave it up to you
+to get the output into a file:
+
+void
+printTree(tree *t)
+{
+  if ( t==NULL )
+    return;
+
+  Print the left child.
+  //indent for "10*level spaces" then print the current node.
+  printf("%*s%s\n",t->level*10,"",t->team);
+
+  Print the right child.
+}
+
+Call the functions from your main function like this:
+
+ for ( round=1 ; round<=TOTALROUNDS ; round++ ) {
+   printf("\nSelect round %d winners:\n",round);
+   predict(tournament);
+ }
+ printf("Round 1   Round 2   Round 3   Round 4   Round 5   Round 6   Winner\n");
+ printTree(tournament);
+ freeTreeNode(tournament);
+ 
+LVL 6
+==
+// fp is the file opened for reading
+ fp = fopen(fname, "r");
+ // would be NULL if there was no such file
+ if (fp == NULL) {
+   printf("Error. Cannot read %s \n", fname);
+   return -1; <<<<<<<<<<<<<<<<<< add this line
+ }
+ ==
+ Zebada,
+
+Thanks for the comment, just have a quick question more because I am not at my computer right now and I can't test it (this is actually just something I am working on in order to teach myself trees in C).  I was just wondering if the void predict(tree *t) function should it look like this:
+
+void predict(tree *t) {  
+       if ( *(t->lchild->team)!='\0' && *(t->rchild->team)!='\0' )
+                      {
+                        //get the user's prediciton between teams (lchild and rchild)
+                       // and store the selection in the current node: t.
+                       printf("Who will win (1)%s or (2) %s? \n", t->lchild, t->rchild);
+                       scanf("%d",&option);
+                       if (option == 1)
+                           t=t->lchild;
+                       else
+                           t=t->rchild;
+                      }
+          else {
+                        //get the predictions for the left child
+                        predict(t->lchild);
+                       //get the predictions for the right child
+                        predict(t->rchild);
+                      }
+}
+
+If you could reply when you get a chance I would appreciate it.  Thanks again
+==
+void
+predict(tree *t)
+{
+  int ans;
+  char discard;
+
+  if ( *(t->lchild->team)!='\0' && *(t->rchild->team)!='\0' )
+  {
+    for ( ;; ) {
+      printf("Pick winner of: 1) %s v's 2) %s: ",t->lchild->team,t->rchild->team);
+      scanf("%d",&ans);
+      if ( ans==1 || ans==2 )
+        break;
+      printf("Please select 1 or 2\n");
+      scanf("%c",&discard); // get rid of incorrect response
+    }
+    if ( ans==1 )
+      strcpy(t->team,t->lchild->team);
+    else
+      strcpy(t->team,t->rchild->team);
+  }
+  else {
+    predict(t->lchild);
+    predict(t->rchild);
+  }
+}
+==
+Uh-Oh, I didn't see your code:
+
+if (option == 1)
+  t=t->lchild;
+else
+  t=t->rchild;
+
+That will mess up your tree structure because you are changing the actual nodes. All you really want to do is to copy the name of the winning team to the parent node of the two teams.
+
+like this:
+  
+if ( ans==1 )
+  strcpy(t->team,t->lchild->team);
+else
+  strcpy(t->team,t->rchild->team);
+  ==
+  One more thing:
+
+Your code:
+
+printf("Who will win (1)%s or (2) %s? \n", t->lchild, t->rchild);
+
+will not print the team names, you need to do this:
+                      
+printf("Pick winner of: 1) %s v's 2) %s: ",t->lchild->team,t->rchild->team);
+==
+
